@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -58,6 +55,7 @@ public class UI_Manager : MonoBehaviour
     }
     public void OnYESBackToMainMenuPress()
     {
+        Debug.Log("Saving...");
         statscript.SaveStats();
         SceneManager.LoadScene(0);
         

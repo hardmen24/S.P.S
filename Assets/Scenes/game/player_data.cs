@@ -1,9 +1,9 @@
 using UnityEngine;
 [System.Serializable]
-public class player_data : MonoBehaviour
+public class player_data
 {
     public static player_data current;
-    public string name;
+    public string slime_name;
     public float hunger;
     public float sleepiness;
     public float happiness;

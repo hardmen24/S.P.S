@@ -16,6 +16,7 @@ public class Save_game : MonoBehaviour
     /// </summary>
     public static bool SaveData<T>(string filename, T data)
     {
+        Debug.Log($"[SaveSystem] Attempting to save data for '{filename}'...");
         string path = GetSavePath(filename);
 
         try
@@ -91,4 +92,29 @@ public class Save_game : MonoBehaviour
         return new T(); // Return a fresh object if loading completely fails
     }
 
+    public static bool DeleteSave(string filename)
+{
+    string path = GetSavePath(filename);
+
+    try
+    {
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            Debug.Log($"[SaveSystem] Save deleted: {path}");
+            return true;
+        }
+        else
+        {
+            Debug.LogWarning($"[SaveSystem] No save found to delete at: {path}");
+            return false;
+        }
+    }
+    catch (Exception ex)
+    {
+        Debug.LogError($"[SaveSystem] Failed to delete save: {ex.Message}");
+        return false;
+    }
+}
+    
 }

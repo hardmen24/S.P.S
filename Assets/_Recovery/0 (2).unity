@@ -4066,7 +4066,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Stats
   Slime_NAME: 
-  sleep_script: {fileID: 1363209971}
+  sleep_script: {fileID: 0}
   TextElement: {fileID: 1050544238}
 --- !u!1 &927722358
 GameObject:

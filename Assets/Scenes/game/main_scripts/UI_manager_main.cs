@@ -47,16 +47,24 @@ public class UI_manager_main : MonoBehaviour
 
     public void OnNewGamePress()
     {
+        if (string.IsNullOrEmpty(nameInput.text))
+        {
+            Debug.LogWarning("Name input is empty. Please enter a name for your slime.");
+            return;
+        }
     player_data.current = new player_data
     {
-        name = nameInput.text,
+        slime_name = nameInput.text,
         hunger = 80f,
         sleepiness = 80f,
         happiness = 80f,
-        health = 80f,
+        health = 100f,
         age = 0f
     };
+     string filename = nameInput.text;
+    Save_game.SaveData(filename, player_data.current);
     SceneManager.LoadScene(1);
+   
     }
 
     public void OnLoadPress(string saveName)

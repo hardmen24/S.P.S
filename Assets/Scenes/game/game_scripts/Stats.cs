@@ -8,7 +8,7 @@ public class Stats : MonoBehaviour
     public stat sleepiness;
     public stat happiness;
     public stat health;
-    public string Name;
+    public string Slime_NAME;
     public Sleep sleep_script;
     private stat age;
     private float timeSinceLastChange = 0f;
@@ -16,9 +16,10 @@ public class Stats : MonoBehaviour
     [SerializeField] private TextMeshProUGUI TextElement;
     
    public void SaveStats(){
+    Debug.Log("in stats");
     player_data data = new player_data
     {
-        name      = Name,
+        slime_name      = Slime_NAME,
         hunger    = hunger.GetValue(),
         sleepiness = sleepiness.GetValue(),
         happiness = happiness.GetValue(),
@@ -26,13 +27,16 @@ public class Stats : MonoBehaviour
         age       = age.GetValue(),
         lastSaveTime = System.DateTime.Now.ToString(),
         is_sleeping = sleep_script.is_in
+        
     };
-    Save_game.SaveData(Name, data);
+    Debug.Log("data created");
+    Save_game.SaveData(Slime_NAME, data);
+    Debug.Log("data saved");
     }
     
     public void New_game(string Name_in)
     {
-        Name = Name_in;
+        Slime_NAME = Name_in;
         hunger = new stat(0.069f, this, "hladový");      
         sleepiness = new stat(0.023f, this, "unavený");
         happiness = new stat(0.06f, this, "nešťastný"); 
@@ -53,7 +57,7 @@ void Update()
         happiness.Decay();
         age.Grow();
     }
-    UpdateStatusText(Name);
+    UpdateStatusText(Slime_NAME);
 }
 
     void Start()
@@ -63,8 +67,13 @@ void Update()
         New_game("Slime"); // fallback
         return;
     }
+    if (string.IsNullOrEmpty(player_data.current.slime_name))
+    {
+        New_game("Slime"); // fallback
+        return;
+    }
 
-    Name = player_data.current.name;
+    Slime_NAME = player_data.current.slime_name;
     hunger = new stat(0.069f, this, "hladový");
     sleepiness = new stat(0.023f, this, "unavený");
     happiness = new stat(0.06f, this, "nešťastný");
@@ -137,7 +146,9 @@ void Update()
     {
         health.Change(-amount);
         if (health.GetValue() <= 0)
-        {
+        {   
+            Save_game.DeleteSave(Slime_NAME);
+            Application.Quit();
         }
     }
 }
