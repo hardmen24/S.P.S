@@ -58,8 +58,4 @@ Keep an eye on the text under the stat bars — it tells you what your slime nee
 ---
 
 ## 🚀 How to Run
-
-### Build from Source
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/hardmen24/S.P.S.git
+install from Standalone floder
